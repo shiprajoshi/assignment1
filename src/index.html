@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Assignment</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./main.css'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+</head>
+<body onload="onPageLoad()">
+    <button onclick="shuffle()"> shuffle</button>
+    <div id="imageSection" class="image-container">
+       
+    </div>
+
+    
+</body>
+<script>
+    let numberOfImages;
+    let images = [
+        {
+            src: 'https://picsum.photos/id/100/300/300',
+            alt: 'image1',
+        },
+        {
+            src: 'https://picsum.photos/id/200/300/300',
+            alt: 'image2',
+
+        },
+        {
+            src: 'https://picsum.photos/id/300/300/300',
+            alt: 'image3',
+
+        }, 
+        {
+            src: 'https://picsum.photos/id/280/300/300',
+            alt: 'image4',
+
+        }, 
+        {
+            src: 'https://picsum.photos/id/512/300/300',
+            alt: 'image5'
+        }, 
+        {
+            src: 'https://picsum.photos/id/690/300/300',
+            alt: 'image6'
+        }, 
+        {
+            src: 'https://picsum.photos/id/73/300/300',
+            alt: 'image7'
+        }, 
+        {
+            src: 'https://picsum.photos/id/83/300/300',
+            alt: 'image8'
+        }, 
+        {
+            src: 'https://picsum.photos/id/94/300/300',
+            alt: 'image9'
+        }, 
+        {
+            src: 'https://picsum.photos/id/39/300/300',
+            alt: 'image10'
+        }, 
+        {
+            src: 'https://picsum.photos/id/113/300/300',
+            alt: 'image11'
+        }
+    ]
+
+    function shuffle() {
+        var ul = document.getElementById('imageSection');
+        for (var i = ul.children.length; i >= 0; i--) {
+            ul.appendChild(ul.children[Math.random() * i | 0]);
+        }
+    }
+
+    function onPageLoad(){
+        let imageContainer = document.getElementById('imageSection');
+        for(let i=0; i<images.length; i++){
+            let newElement = document.createElement("div");
+            newElement.className = 'div-img'
+
+            let createSpan = document.createElement('span')
+            createSpan.innerHTML= images[i].alt
+            createSpan.setAttribute('id', 'img-span')
+
+            let createLink= document.createElement('a')
+            createLink.setAttribute("href", '#')
+
+            let x = document.createElement("img")
+            x.setAttribute('src', images[i].src);
+            x.setAttribute('alt', images[i].alt);
+
+            let dummyText = document.createElement('span');
+            dummyText.innerHTML= 'dummy text';
+            dummyText.setAttribute('class', 'extra-text');
+            dummyText.hidden = true;
+            let btn = document.createElement('button');
+            btn.innerHTML= 'delete'
+            btn.name = 'delete'
+            dummyText.appendChild(btn)
+            newElement.appendChild(createSpan)
+            newElement.appendChild(createLink);
+            newElement.appendChild(dummyText)
+            createLink.appendChild(x)
+            imageContainer.appendChild(newElement);
+
+            x.setAttribute('onload', 
+            "javascript: if(document.getElementById('img-span'))document.getElementById('img-span').remove()")
+        }
+        
+        
+        let getAllDeleteIcons = document.getElementsByName('delete')
+        getAllDeleteIcons.forEach((i, index)=> i.addEventListener('click', onClick, false));
+
+        function onClick(e) {
+    
+            e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode)
+        }
+    }
+   
+    function onhover(){
+       // document.getElementsByClassName('extra-text').
+    }
+</script>
+</html>
